@@ -7,6 +7,14 @@ export function loadCoursesSuccess(courses) {
 // this is an action creator, an optional function that returns an action
 // actions have a type and some data to pass along to the reducer
 
+export function updateCourseSuccess(course) {
+    return { type: types.UPDATE_COURSE_SUCCESS, course };
+}
+
+export function createCourseSuccess(course) {
+    return { type: types.CREATE_COURSE_SUCCESS, course };
+}
+
 export default function loadCourses() {
     return function(dispatch) {
         return courseApi.getAllCourses()
@@ -14,6 +22,18 @@ export default function loadCourses() {
             dispatch(loadCoursesSuccess(courses));
         })
         .catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export function saveCourse(course) {
+    return function(dispatch, getState) {
+        // getState allows us to access Redux store directly
+        return courseApi.saveCourse(course)
+        .then(savedCourse => {
+            course.id ? dispatch(updateCourseSuccess(savedCourse)) : dispatch(createCourseSuccess(savedCourse));
+        }).catch(error => {
             throw(error);
         });
     };

@@ -10,3 +10,4 @@ export default function configureStore(initialState) {
         applyMiddleware(thunk, reduxImmutableStateInvariant())
     );
 }
+// this is where the root reducer is connected to the store

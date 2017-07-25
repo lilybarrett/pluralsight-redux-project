@@ -13,7 +13,7 @@ const CourseForm = ({ course, allAuthors, onSave, onChange, loading, errors }) =
                 onChange={onChange}
                 error={errors.title} 
             />
-             <TextInput
+             <SelectInput
                 name="authorId"
                 label="Author"
                 value={course.authorId}
