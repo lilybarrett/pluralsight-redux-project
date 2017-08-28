@@ -13,7 +13,7 @@ class ManageCoursePage extends React.Component {
         this.state = {
             course: Object.assign({}, this.props.course),
             errors: {},
-            saving: false,
+            saving: false
         };
 
         this.updateCourseState = this.updateCourseState.bind(this);
@@ -45,7 +45,7 @@ class ManageCoursePage extends React.Component {
             .catch((error) => {
                 toastr.error(error);
                 this.setState({ saving: false });
-            })
+            });
         // we can access the actions from our props because we mapped the dispatch to our props below?
     }
 
@@ -89,7 +89,7 @@ function getCourseById(courses, id) {
 }
 
 function mapStateToProps(state, ownProps) {
-    const courseId = ownProps.params.id //from the path "/course/:id"
+    const courseId = ownProps.params.id; //from the path "/course/:id"
     let course = {id: " ", watchHref: " ", title: " ", authorId: " ", length: " ", category: " "};
 
     if (courseId && state.courses.length > 0) {

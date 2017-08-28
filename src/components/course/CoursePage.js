@@ -16,7 +16,7 @@ class CoursePage extends React.Component {
   }
 
   render() {
-    const { courses } = this.props;
+    const { courses, actions } = this.props;
     return (
       <div>
         <h1>Courses</h1>
@@ -24,7 +24,7 @@ class CoursePage extends React.Component {
                value="Add Course"
                className="btn btn-primary"
                onClick={this.redirectToAddCoursePage} />
-        <CourseList courses={courses}/>
+        <CourseList courses={courses} actions={actions}/>
       </div>
     );
   }
