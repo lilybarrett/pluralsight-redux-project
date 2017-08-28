@@ -70,11 +70,11 @@ class CourseApi {
       setTimeout(() => {
         // Simulate server-side validation
         const minCourseTitleLength = 1;
-        if (course.title.length < minCourseTitleLength) {
+        if (course.title.trim().length < minCourseTitleLength) {
           reject(`Title must be at least ${minCourseTitleLength} characters.`);
         }
 
-        if (course.id) {
+        if (course.id.trim()) {
           const existingCourseIndex = courses.findIndex(a => a.id == course.id);
           courses.splice(existingCourseIndex, 1, course);
         } else {
