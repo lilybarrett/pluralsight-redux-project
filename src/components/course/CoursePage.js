@@ -17,9 +17,10 @@ class CoursePage extends React.Component {
 
   render() {
     const { courses, actions } = this.props;
+
     return (
       <div>
-        <h1>Courses</h1>
+        <h1>Courses ({courses.length}) </h1>
         <input type="submit"
                value="Add Course"
                className="btn btn-primary"
