@@ -52,7 +52,7 @@ describe("ManageCoursePage", () => {
         expect(component.props().state).toBe(expectedState);
     });
 
-    it("should dispatch the correct actions", () => {
+    it("should dispatch the correct actions when saving a course", () => {
         const middlewares = [thunk];
         const mockStore = configureMockStore(middlewares);
 
