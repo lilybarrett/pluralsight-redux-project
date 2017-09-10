@@ -1,9 +1,10 @@
 import { connect, Provider } from "react-redux";
 import * as actions from "../../actions/courseActions"
+import * as types from "../../actions/actionTypes";
 import configureMockStore from 'redux-mock-store'
 // import { createMockStore } from "redux-test-utils";
+// this worked fine and had lots of handy helper methods, but I couldn't integrate the thunk middleware.
 import React from "react";
-import nock from 'nock'
 import { shallowWithStore } from "enzyme-redux";
 import { mount } from "enzyme"
 import thunk from 'redux-thunk'
@@ -28,14 +29,14 @@ describe("ManageCoursePage", () => {
             length: "2:52",
             category: "Software Architecture"
         };
-        const expectedState = { authors: ["Cory House"], courses: [firstCourse], numAjaxCallsInProgress: 0};
+        const initialState = { authors: ["Cory House"], courses: [firstCourse], numAjaxCallsInProgress: 0};
         const mapStateToProps = (state) => ({
             state,
           });
         const ConnectedManageCoursePage = connect(mapStateToProps)(ManageCoursePage);
 
         const wrapper = renderer.create(
-          <Provider store={mockStore(expectedState)}>
+          <Provider store={mockStore(initialState)}>
               <ConnectedManageCoursePage params={"architecture"}/>
               {/* need to add in "ownProps" here that don't come from state */}
               {/* still seeing a weird error about keys being missing, but the test passes, so... */}
@@ -45,13 +46,13 @@ describe("ManageCoursePage", () => {
     });
 
     it("should have the correct default props from state", () => {
-        const expectedState =  { authors: [], courses: [], numAjaxCallsInProgress: 0};
+        const initialState =  { authors: [], courses: [], numAjaxCallsInProgress: 0};
         const mapStateToProps = (state) => ({
             state,
         });
         const ConnectedManageCoursePage = connect(mapStateToProps)(ManageCoursePage);
-        const component = shallowWithStore(<ConnectedManageCoursePage />, mockStore(expectedState));
-        expect(component.props().state).toBe(expectedState);
+        const component = shallowWithStore(<ConnectedManageCoursePage />, mockStore(initialState));
+        expect(component.props().state).toBe(initialState);
     });
     // if we want to see how this affects the appearance of things on the page, it would probably make sense to move that stuff to an integration test.
 
@@ -64,7 +65,7 @@ describe("ManageCoursePage", () => {
             length: "2:52",
             category: "Software Architecture"
         };
-        const expectedState = { authors: ["Cory House"], courses: [firstCourse], numAjaxCallsInProgress: 0};
+        const initialState = { authors: ["Cory House"], courses: [firstCourse], numAjaxCallsInProgress: 0};
         const mapStateToProps = (state) => ({
             state,
           });
@@ -89,14 +90,38 @@ describe("ManageCoursePage", () => {
             },
         });
 
-        const store = mockStore(expectedState);
+        const store = mockStore(initialState);
         const ConnectedManageCoursePage = connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
         const component = shallowWithStore(<ConnectedManageCoursePage />, store);
 
         return store.dispatch(actions.saveCourse(secondCourse)).then(() => {
             // need to do this because we're dispatching async actions using thunk
             const actualActions = store.getActions().map(action => action.type)
+           // note: redux-mock-store only stores changes to actions, not the state.
             expect(actualActions).toEqual(expectedActions);
-        })
+        });
+    });
+
+    it("should have the correct output via the reducer", () => {
+        const initialState =  { authors: [], courses: [], numAjaxCallsInProgress: 0};
+        const course = {
+            id: "career-reboot-for-developer-mind",
+            title: "Becoming an Outlier: Reprogramming the Developer Mind",
+            watchHref: "http://www.pluralsight.com/courses/career-reboot-for-developer-mind",
+            authorId: "cory-house",
+            length: "2:30",
+            category: "Career"
+        }
+        const action = {
+            type: types.CREATE_COURSE_SUCCESS,
+            course: course
+        }
+        const nextState = courseReducer(initialState, action);
+        expect(nextState).toEqual([ { id: 'career-reboot-for-developer-mind',
+        title: 'Becoming an Outlier: Reprogramming the Developer Mind',
+        watchHref: 'http://www.pluralsight.com/courses/career-reboot-for-developer-mind',
+        authorId: 'cory-house',
+        length: '2:30',
+        category: 'Career' } ]);
     })
   });

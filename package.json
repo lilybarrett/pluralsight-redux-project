@@ -23,6 +23,7 @@
     "react-router": "2.4.0",
     "react-router-redux": "4.0.4",
     "redux": "3.5.2",
+    "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "2.0.1",
     "toastr": "2.1.2"
   },
@@ -53,7 +54,6 @@
     "file-loader": "0.8.5",
     "jest": "^21.0.2",
     "jsdom": "8.5.0",
-    "nock": "^8.0.0",
     "npm-run-all": "1.8.0",
     "open": "0.0.5",
     "react-addons-test-utils": "15.0.2",
