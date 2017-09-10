@@ -6,6 +6,10 @@ export function loadAuthorsSuccess(authors) {
     return { type: types.LOAD_AUTHORS_SUCCESS, authors };
 }
 
+export function createAuthorSuccess(author) {
+    return { type: types.CREATE_AUTHOR_SUCCESS, author };
+}
+
 export default function loadAuthors() {
     return function(dispatch) {
         dispatch(beginAjaxCall());
@@ -23,3 +27,15 @@ export default function loadAuthors() {
 // this is a thunk -- an action creator that returns a function instead of an action
 // loadAuthorsSuccess is an action creator that returns a regular action for when the thunk is successful
 // normally, we'd have an action to account for failure as well, but we're not doing that here for the sake of time
+
+// export function saveAuthor() {
+//     return function(dispatch) {
+//         dispatch(beginAjaxCall());
+//         return AuthorApi.saveAuthor()
+//         .then(author => {
+//             dispatch(createAuthorSuccess(author));
+//         }).catch(error => {
+//             throw(error);
+//         })
+//     }
+// }

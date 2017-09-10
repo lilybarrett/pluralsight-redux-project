@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageCoursePage should render properly 1`] = `
+<div>
+  <form>
+    <h1>
+      Manage Course
+    </h1>
+    <div
+      className="form-group"
+    >
+      <label
+        htmlFor="title"
+      >
+        Title
+      </label>
+      <div
+        className="field"
+      >
+        <input
+          className="form-control"
+          name="title"
+          onChange={[Function]}
+          placeholder={undefined}
+          type="text"
+          value=" "
+        />
+      </div>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        htmlFor="authorId"
+      >
+        Author
+      </label>
+      <div
+        className="field"
+      >
+        <select
+          className="form-control"
+          name="authorId"
+          onChange={[Function]}
+          value=" "
+        >
+          <option
+            value=" "
+          >
+            Select Author
+          </option>
+          <option
+            value={undefined}
+          >
+            undefined undefined
+          </option>
+        </select>
+      </div>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        htmlFor="category"
+      >
+        Category
+      </label>
+      <div
+        className="field"
+      >
+        <input
+          className="form-control"
+          name="category"
+          onChange={[Function]}
+          placeholder={undefined}
+          type="text"
+          value=" "
+        />
+      </div>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        htmlFor="length"
+      >
+        Length
+      </label>
+      <div
+        className="field"
+      >
+        <input
+          className="form-control"
+          name="length"
+          onChange={[Function]}
+          placeholder={undefined}
+          type="text"
+          value=" "
+        />
+      </div>
+    </div>
+    <input
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="submit"
+      value="Save"
+    />
+  </form>
+</div>
+`;
