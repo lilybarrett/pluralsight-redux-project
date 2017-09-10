@@ -12,11 +12,14 @@ import ManageCoursePage from "./ManageCoursePage";
 import courseReducer from "../../reducers/courseReducer";
 
 describe("ManageCoursePage", () => {
+    let mockStore;
+
+    beforeEach(() => {
+        const middlewares = [thunk];
+        mockStore = configureMockStore(middlewares);
+    })
 
     it("should render properly", () => {
-        const middlewares = [thunk];
-        const mockStore = configureMockStore(middlewares);
-
         const firstCourse =  {
             id: "architecture",
             title: "Architecting Applications for the Real World",
@@ -35,14 +38,13 @@ describe("ManageCoursePage", () => {
           <Provider store={mockStore(expectedState)}>
               <ConnectedManageCoursePage params={"architecture"}/>
               {/* need to add in "ownProps" here that don't come from state */}
+              {/* still seeing a weird error about keys being missing, but the test passes, so... */}
           </Provider>,
         ).toJSON();
         expect(wrapper).toMatchSnapshot();
     });
 
     it("should have the correct default props from state", () => {
-        const middlewares = [thunk];
-        const mockStore = configureMockStore(middlewares);
         const expectedState =  { authors: [], courses: [], numAjaxCallsInProgress: 0};
         const mapStateToProps = (state) => ({
             state,
@@ -51,11 +53,9 @@ describe("ManageCoursePage", () => {
         const component = shallowWithStore(<ConnectedManageCoursePage />, mockStore(expectedState));
         expect(component.props().state).toBe(expectedState);
     });
+    // if we want to see how this affects the appearance of things on the page, it would probably make sense to move that stuff to an integration test.
 
     it("should dispatch the correct actions when saving a course", () => {
-        const middlewares = [thunk];
-        const mockStore = configureMockStore(middlewares);
-
         const firstCourse =  {
             id: "architecture",
             title: "Architecting Applications for the Real World",
