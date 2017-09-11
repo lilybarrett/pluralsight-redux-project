@@ -95,6 +95,7 @@ describe("ManageCoursePage", () => {
         const component = shallowWithStore(<ConnectedManageCoursePage />, store);
 
         return store.dispatch(actions.saveCourse(secondCourse)).then(() => {
+            // we can change this to use async/await
             // need to do this because we're dispatching async actions using thunk
             const actualActions = store.getActions().map(action => action.type)
            // note: redux-mock-store only stores changes to actions, not the state.
@@ -128,8 +129,7 @@ describe("ManageCoursePage", () => {
             course: course
         }
         const nextState = courseReducer(initialState, action);
-        expect(nextState).toEqual([
-            { id: 'architecture',
+        expect(nextState).toEqual([ { id: 'architecture',
             title: 'Architecting Applications for the Real World',
             watchHref: 'http://www.pluralsight.com/courses/architecting-applications-dotnet',
             authorId: 'cory-house',
