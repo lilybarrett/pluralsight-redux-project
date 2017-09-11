@@ -103,7 +103,18 @@ describe("ManageCoursePage", () => {
     });
 
     it("should have the correct output via the reducer", () => {
-        const initialState =  { authors: [], courses: [], numAjaxCallsInProgress: 0};
+        // we don't need to mount a component for this to take place --
+        // after all, a reducer is just a pure function.
+        // so we just test the input and output.
+        const firstCourse =  {
+            id: "architecture",
+            title: "Architecting Applications for the Real World",
+            watchHref: "http://www.pluralsight.com/courses/architecting-applications-dotnet",
+            authorId: "cory-house",
+            length: "2:52",
+            category: "Software Architecture"
+        };
+        const initialState = [firstCourse];
         const course = {
             id: "career-reboot-for-developer-mind",
             title: "Becoming an Outlier: Reprogramming the Developer Mind",
@@ -117,11 +128,17 @@ describe("ManageCoursePage", () => {
             course: course
         }
         const nextState = courseReducer(initialState, action);
-        expect(nextState).toEqual([ { id: 'career-reboot-for-developer-mind',
-        title: 'Becoming an Outlier: Reprogramming the Developer Mind',
-        watchHref: 'http://www.pluralsight.com/courses/career-reboot-for-developer-mind',
-        authorId: 'cory-house',
-        length: '2:30',
-        category: 'Career' } ]);
-    })
+        expect(nextState).toEqual([ { id: 'architecture',
+            title: 'Architecting Applications for the Real World',
+            watchHref: 'http://www.pluralsight.com/courses/architecting-applications-dotnet',
+            authorId: 'cory-house',
+            length: '2:52',
+            category: 'Software Architecture' },
+        { id: 'career-reboot-for-developer-mind',
+            title: 'Becoming an Outlier: Reprogramming the Developer Mind',
+            watchHref: 'http://www.pluralsight.com/courses/career-reboot-for-developer-mind',
+            authorId: 'cory-house',
+            length: '2:30',
+            category: 'Career' } ])
+        })
   });
